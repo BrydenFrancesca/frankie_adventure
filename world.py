@@ -11,6 +11,12 @@ world_dsl = """
 | |OT| |OT|ET|
 """
 
+##Function to randomise damage
+def rndm(self):
+    r = random.random()
+    x = int(self.enemy.damage)
+    return(round(x * r))
+
 class MapTile:
     def __init__(self, x, y):
         self.x = x
@@ -122,8 +128,9 @@ class EnemyTile(MapTile):
     #Make the enemy attack
     def modify_player(self, player):
         if self.enemy.is_alive():
-            player.hp -= self.enemy.damage
-            print(f"""You have taken {self.enemy.damage} damage!
+            dam = rndm(self)
+            player.hp -= dam
+            print(f"""You have taken {dam} damage!
             You have {player.hp} health remaining""")
     #Pick up the item
         elif self.claimed == False:
