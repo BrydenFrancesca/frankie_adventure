@@ -7,7 +7,7 @@ import npc
 world_dsl = """
 | |OT|ET|ET|OT|
 |OT|ET| |VT|ET|
-|KT|ST|OT|ET| |
+|KT|ST|OT|TT| |
 | |ET|KT|ET| |
 | |OT| |OT|ET|
 """
@@ -46,6 +46,62 @@ class KitchenTile(MapTile):
         There is a lot of food in here.
         For some reason, humans do not like you being in here.
         """
+
+class TraderTile(MapTile):
+    def __init__(self, x, y):
+        self.trader = npc.Trader()
+        super().__init__(x, y)
+
+    #Trading Function
+    def trade(self, buyer, seller):
+        for i, item in enumerate(seller.inventory, 1):
+            print(f"{i}. {item.name} - {item.value})
+        while True:
+            user_input = input("Choose an item or press Q to exit: ")
+            if user_input in ["Q", "q"]:
+                return
+            else:
+                try:
+                    choice = int(user_input)
+                    to_swap = seller.inventory[choice - 1]
+                    self.swap(seller, buyer, to_swap)
+                except ValueError:
+                    print("Invalid choice!")
+
+    #Define swapping Function
+    def swap(self, seller, buyer, item):
+        if item.value > buyer.gold:
+            print("That's too expensive!")
+            return
+        seller.inventory.remove(item)
+        buyer.inventory.append(item)
+        seller.gold = seller.gold + item.value
+        buyer.gold = buyer.gold - item.value
+        print("Trade complete!")
+
+    #Function to initate trade
+    def check_if_trade(self, player):
+        while True:
+            print("Would you like to (B)uy, (S)ell, or (Q)uit?")
+            user_input = input()
+            if user_input in ["Q", "q"]:
+                return
+            elif user_input in ["B", "b"]:
+                print("The bunny opens his backpack to reveal the following: ")
+                self.trade(buyer = player, seller = self.trader)
+            elif user_input in ["S", "s"]:
+                print("You check what you have in your inventory to sell: ")
+                self.trade(buyer = self.trader, seller = player)
+            else:
+                print("Invalid choice!")    
+
+    def intro_text(self):
+        return """
+        You are in a large room that is all made of windows.
+        There is a very floofy bunny here.
+        He looks like he might be willing to trade with you.
+        """
+
 
 class OutsideTile(MapTile):
     def __init__(self, x, y):
@@ -169,6 +225,7 @@ tile_type_dict =  {"VT": VictoryTile,
                    "ST": StartTile,
                    "KT": KitchenTile,
                    "OT": OutsideTile,
+                   "TT": TraderTile,
                    " ": None}
 
 ##Layout the grid of the map
