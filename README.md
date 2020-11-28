@@ -3,10 +3,10 @@
 
 ### Still to add
 
-([]) Trading functionality
-([]) More monsters
-([]) More weapons
-([]) More powerups
-([]) Variation on damage caused
-([]) Larger map
-([]) Second storey to map
+- [] Trading functionality
+- [] More monsters
+- [] More weapons
+- [] More powerups
+- [] Variation on damage caused
+- [] Larger map
+- [] Second storey to map
