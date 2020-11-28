@@ -11,7 +11,7 @@ class Player:
     #Add HP to the player
         self.hp = 100
         self.victory = False #Set winning option
-        self.gold = 500
+        self.gold = 5
 
     #Give player the option to die
     def is_alive(self):
@@ -49,6 +49,7 @@ class Player:
                 valid = True
             except(ValueError, IndexError):
                 print("This is not nommable, try again")
+                return
 
     #Calculation of best weapon
     def best_weapon(self):
@@ -104,4 +105,5 @@ class Player:
         room.chats(self)
 
 #Check your health
-    def 
+    def check_health(self):
+        print(f"You have {self.hp} HP remaining")
