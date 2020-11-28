@@ -6,7 +6,7 @@ class Player:
         self.inventory = [items.Claws(), items.Dreamies()]
 
     #Add coordinates to player
-        self.x = 1
+        self.x = 2
         self.y = 2
     #Add HP to the player
         self.hp = 100

@@ -5,13 +5,13 @@ import npc
 
 ###Abbreviated map
 world_dsl = """
-| |OT|ET|ET|OT|TT|
-|OT|ET| ||ET| |
-|KT|ST|OT|WT|TT|OT|
-|ET|ET|KT|ET| |ET|
-| |OT| |OT|ET|KT|
-|VT|BT|OT|WT| |KT|
-| |KT|OT|ET|ET|OT|
+|  |OT|ET|ET|OT|KT|
+|WT|  |ET|KT|ET|  |
+|KT|OT|ST|ET|KT|OT|
+|ET|KT|KT|ET|  |ET|
+|  |OT|  |OT|ET|TT|
+|VT|BT|OT|WT|  |KT|
+
 """
 
 ##Function to randomise damage
@@ -42,12 +42,37 @@ class StartTile(MapTile):
         There are doors heading in four directions
         """
 class KitchenTile(MapTile):
+    def __init__(self, x, y):
+    #Randomly generated room description
+        r = random.random()
+        self.been_here = False #The room knows if you have been here
+        if r < 0.33:
+            self.text = """
+            You are in a room with a cold, shiny floor.
+            There is a lot of food in here.
+            For some reason, humans do not like you being in here.
+            """
+        elif r < 0.66:
+            self.text = """
+            You are in a room with a soft bed.
+            There is an inadequate amount of food here, and no human.
+            This is unacceptable.
+            """
+        else:
+            self.text = """
+            You are in a small room.
+            There is a giant litter tray that the humans like to fill with water.
+            You do not trust the giant litter tray
+            """
+        super().__init__(x,y)
+
     def intro_text(self):
-        return """
-        You are in a room with a cold, shiny floor.
-        There is a lot of food in here.
-        For some reason, humans do not like you being in here.
-        """
+        if not self.been_here:
+            self.been_here = True #The room knows if you have been here
+            return self.text
+        else:
+            return self.text + "\n It smells like you have been here before \n"
+
 
 class TraderTile(MapTile):
     def __init__(self, x, y):
@@ -313,7 +338,7 @@ tile_type_dict =  {"VT": VictoryTile,
                    "TT": TraderTile,
                    "WT": WizardTile,
                    "BT": BossTile,
-                   " ": None}
+                   "  ": None}
 
 ##Layout the grid of the map
 world_map = []
