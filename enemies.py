@@ -18,6 +18,13 @@ class Hoover(Enemy):
         self.damage = 5
         self.prize = 2
 
+class LooRoll(Enemy):
+    def __init__(self):
+        self.name = "Toilet Roll"
+        self.hp = 15
+        self.damage = 15
+        self.prize = 3
+
 class SprayBottle(Enemy):
     def __init__(self):
         self.name = "Spray Bottle"

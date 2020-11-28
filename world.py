@@ -105,37 +105,51 @@ class TraderTile(MapTile):
 class WizardTile(MapTile):
     def __init__(self, x, y):
         self.wizard = npc.Doggo()
+        self.been_here = False #The room knows if you have been here
         super().__init__(x, y)
 
     #Trading Function
     def chats(self, player):
-        while True:
-            print("Would you like to (H)iss at the pupper or (B)op him on the nose?")
-            user_input = input()
-            if user_input in ["H", "h"]:
-                print("The doggo cries and runs away. You are smug")
-                return
-            elif user_input in ["B", "b"]:
-                print("""The pupper is heckin pleased.
-                You also feel good, for some reason""")
-                
-            else:
-                print("Invalid choice!")
+        if self.been_here == False:
+            while True:
+                print("Would you like to (H)iss at the pupper or (B)op him on the nose?")
+                user_input = input()
+                if user_input in ["H", "h"]:
+                    print("The doggo cries and runs away. You are smug")
+                    self.been_here = True
+                    return
+                elif user_input in ["B", "b"]:
+                    player.hp = 120
+                    print(f"""The pupper is heckin pleased.
+                    You also feel good, for some reason.
+                    Your HP is now {player.hp}""")
+                    self.been_here = True
+                    return
+                else:
+                    print("Invalid choice!")
 
     def intro_text(self):
-        return """
-        You are in the out. It smells like doggo here.
-        A heckin pupper licks your nose.
-        """
+        if self.been_here == False:
+            return """
+            You are in the out. It smells like doggo here.
+            A heckin pupper licks your nose.
+            """
+        else:
+            return """
+            You are in the out.
+            It smells like you have already been here
+            It also kind of smells of dog"""
 
 class OutsideTile(MapTile):
     def __init__(self, x, y):
     #Randomly generated enemy tile
         r = random.random()
-        if r < 0.4:
+        if r < 0.2:
             self.item = items.Dreamies()
-        elif r < 0.6:
+        elif r < 0.4:
             self.item = items.DeadMouse()
+        elif r < 0.6:
+            self.item = items.Carrot()
         elif r < 0.8:
             self.item = items.Milk()
         else:
@@ -171,12 +185,18 @@ class EnemyTile(MapTile):
         self.been_here = False #The room knows if you have been here
     #Randomly generated enemy tile
         r = random.random()
-        if r < 0.4:
+        if r < 0.3:
             self.enemy = enemies.Hoover()
             self.alive_text = "A fearsome Hoover blocks your path!"
             self.dead_text = f"""The slain corpse of the Hoover lies on the floor.
             It has dropped {self.enemy.prize} pieces of gold"""
             self.taken_prize = "The slain corpse of the Hoover lies on the floor."
+        elif r < 0.6:
+            self.enemy = enemies.LooRoll()
+            self.alive_text = "A chonky loo roll lies in your path menacingly!"
+            self.dead_text = f"""You have shredded the loo roll into tiny chunks.
+            It has dropped {self.enemy.prize} pieces of gold"""
+            self.taken_prize = "You step over a shredded loo roll. May you should chew it some more?"
         elif r < 0.8:
             self.enemy = enemies.SprayBottle()
             self.alive_text = "A cunning Spray Bottle full of water attacks you!"

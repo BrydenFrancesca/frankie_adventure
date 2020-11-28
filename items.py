@@ -30,6 +30,14 @@ class ToyOnString(Weapon):
         self.damage = 20
         self.value = 10
 
+class MetalClaws(Weapon):
+    def __init__(self):
+        self.name = "Titanium Coated Claws"
+        self.description = """These titanium-coated claws are shiny AND strong.
+        Enemies will cower before you"""
+        self.damage = 40
+        self.value = 20
+
 #Create overall consumables class
 class Consumable:
     def __init__(self):
@@ -43,8 +51,20 @@ class Dreamies(Consumable):
         self.healing_value = 10
         self.value = 10
 
+class Carrot(Consumable):
+    def __init__(self):
+        self.name = "Carrot"
+        self.healing_value = 2
+        self.value = 40
+
 class Milk(Consumable):
     def __init__(self):
         self.name = "Milkie Drinks"
         self.healing_value = 30
+        self.value = 20
+
+class HumanFood(Consumable):
+    def __init__(self):
+        self.name = "Human food (nomnom)"
+        self.healing_value = 50
         self.value = 20
