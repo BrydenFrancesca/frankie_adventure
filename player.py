@@ -3,7 +3,7 @@ import world
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Claws(), "Gold(5)", items.Dreamies()]
+        self.inventory = [items.Claws(), items.Dreamies()]
 
     #Add coordinates to player
         self.x = 1
@@ -11,6 +11,7 @@ class Player:
     #Add HP to the player
         self.hp = 100
         self.victory = False #Set winning option
+        self.gold = 5
 
     #Give player the option to die
     def is_alive(self):
@@ -20,6 +21,7 @@ class Player:
         print("Inventory:")
         for item in self.inventory:
             print("* " + str(item))
+            print("You also have " + str(self.gold) + " gold")
 
     #Healing self from Inventory
     def heal(self):
