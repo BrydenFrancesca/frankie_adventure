@@ -3,10 +3,11 @@
 
 ### Still to add
 
-- [] Trading functionality
+- [X] Trading functionality
 - [] More monsters
-- [] More weapons
-- [] More powerups
+- [X] More weapons
+- [X] More powerups
 - [] Variation on damage caused
-- [] Larger map
+- [X] Larger map
 - [] Second storey to map
+- [] Weapons that break
