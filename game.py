@@ -15,6 +15,8 @@ def get_available_actions(room, player):
         action_adder(actions, "c", player.talk, "Talk")
     if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
         action_adder(actions, "a", player.attack, "Attack")
+    if isinstance(room, world.BossTile) and room.enemy.is_alive():
+        action_adder(actions, "a", player.attack, "Attack")
     #Allow to move if a room is there to move to
     else:
         if world.tile_at(room.x, room.y - 1):

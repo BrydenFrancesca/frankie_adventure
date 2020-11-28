@@ -35,8 +35,8 @@ class MetalClaws(Weapon):
         self.name = "Titanium Coated Claws"
         self.description = """These titanium-coated claws are shiny AND strong.
         Enemies will cower before you"""
-        self.damage = 40
-        self.value = 20
+        self.damage = 50
+        self.value = 50
 
 #Create overall consumables class
 class Consumable:
@@ -67,4 +67,4 @@ class HumanFood(Consumable):
     def __init__(self):
         self.name = "Human food (nomnom)"
         self.healing_value = 50
-        self.value = 20
+        self.value = 30

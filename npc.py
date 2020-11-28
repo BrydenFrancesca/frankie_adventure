@@ -16,4 +16,4 @@ class Trader(NonPlayableCharacter):
     def __init__(self):
         self.name = "Floofy Bun"
         self.gold = 100
-        self.inventory = [items.Dreamies()]
+        self.inventory = [items.Dreamies(), items.MetalClaws(), items.Dreamies(), items.DeadMouse(), items.HumanFood()]

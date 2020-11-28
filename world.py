@@ -5,11 +5,13 @@ import npc
 
 ###Abbreviated map
 world_dsl = """
-| |OT|ET|ET|OT|
-|OT|ET| |VT|ET|
-|KT|ST|OT|WT|TT|
-| |ET|KT|ET| |
-| |OT| |OT|ET|
+| |OT|ET|ET|OT|TT|
+|OT|ET| ||ET| |
+|KT|ST|OT|WT|TT|OT|
+|ET|ET|KT|ET| |ET|
+| |OT| |OT|ET|KT|
+|VT|BT|OT|WT| |KT|
+| |KT|OT|ET|ET|OT|
 """
 
 ##Function to randomise damage
@@ -241,6 +243,44 @@ class EnemyTile(MapTile):
             self.claimed = True
             player.gold = player.gold + self.enemy.prize
 
+class BossTile(MapTile):
+    def __init__(self, x, y):
+        self.claimed = False #Gold has not been claimed yet
+        self.been_here = False #The room knows if you have been here
+    #Randomly generated enemy tile
+        self.enemy = enemies.BoxBoss()
+        self.alive_text = "OH NO IT IS THE BOX! It has returned, larger and angrier than ever!"
+        self.dead_text = f"""The mighty defeated Box lies at your feet.
+        It has dropped {self.enemy.prize} pieces of gold"""
+        self.taken_prize = "Once again, you step over the corpse of the defeated Box."
+
+        super().__init__(x,y)
+    #Generate intro text
+    def intro_text(self):
+        if self.enemy.is_alive():
+            return(self.alive_text)
+        elif self.claimed == False:
+            return(self.dead_text)
+        elif self.been_here == False:
+            self.been_here = True
+            return(self.taken_prize + ". \nIt smells like you have been here before.")
+
+    #Make the enemy attack
+    def modify_player(self, player):
+        if self.enemy.is_alive():
+            dam = rndm(self)
+            player.hp -= dam
+            if dam == self.enemy.damage:
+                print("CRITICAL HIT!!")
+            print(f"""You have taken {dam} damage!
+            You have {player.hp} health remaining""")
+    #Pick up the item
+        elif self.claimed == False:
+            self.claimed = True
+            player.gold = player.gold + self.enemy.prize
+
+
+
 class VictoryTile(MapTile):
     #Set value to win
     def modify_player(self, player):
@@ -272,6 +312,7 @@ tile_type_dict =  {"VT": VictoryTile,
                    "OT": OutsideTile,
                    "TT": TraderTile,
                    "WT": WizardTile,
+                   "BT": BossTile,
                    " ": None}
 
 ##Layout the grid of the map
