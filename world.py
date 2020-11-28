@@ -1,6 +1,7 @@
 import random
 import enemies
 import items
+import npc
 
 ###Abbreviated map
 world_dsl = """
@@ -130,6 +131,8 @@ class EnemyTile(MapTile):
         if self.enemy.is_alive():
             dam = rndm(self)
             player.hp -= dam
+            if dam == self.enemy.damage:
+                print("CRITICAL HIT!!")
             print(f"""You have taken {dam} damage!
             You have {player.hp} health remaining""")
     #Pick up the item
