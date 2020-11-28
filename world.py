@@ -7,7 +7,7 @@ import npc
 world_dsl = """
 |  |OT|ET|ET|OT|KT|
 |WT|  |ET|KT|ET|  |
-|KT|OT|TT|ET|KT|OT|
+|KT|OT|ST|ET|KT|OT|
 |ET|KT|KT|ET|  |ET|
 |  |OT|  |OT|ET|TT|
 |VT|BT|OT|WT|  |KT|
@@ -252,7 +252,10 @@ class EnemyTile(MapTile):
             return(self.dead_text)
         elif self.been_here == False:
             self.been_here = True
+            return(self.taken_prize)
+        else:
             return(self.taken_prize + ". \nIt smells like you have been here before.")
+
 
     #Make the enemy attack
     def modify_player(self, player):
@@ -288,6 +291,8 @@ class BossTile(MapTile):
             return(self.dead_text)
         elif self.been_here == False:
             self.been_here = True
+            return(self.taken_prize)
+        else:
             return(self.taken_prize + ". \nIt smells like you have been here before.")
 
     #Make the enemy attack
