@@ -16,21 +16,25 @@ class Hoover(Enemy):
         self.name = "Hoover"
         self.hp = 10
         self.damage = 2
+        self.prize = 2
 
 class SprayBottle(Enemy):
     def __init__(self):
         self.name = "Spray Bottle"
         self.hp = 20
         self.damage = 5
+        self.prize = 5
 
 class LoudNoise(Enemy):
     def __init__(self):
         self.name = "LOUD NOISE"
         self.hp = 40
         self.damage = 1
+        self.prize = 30
 
 class Box(Enemy):
     def __init__(self):
         self.name = "The Box"
         self.hp = 5
         self.damage = 50
+        self.prize = 30

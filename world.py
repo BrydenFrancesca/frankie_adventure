@@ -79,32 +79,40 @@ class OutsideTile(MapTile):
 
 class EnemyTile(MapTile):
     def __init__(self, x, y):
+        self.claimed = False #Gold has not been claimed yet
     #Randomly generated enemy tile
         r = random.random()
         if r < 0.4:
             self.enemy = enemies.Hoover()
             self.alive_text = "A fearsome Hoover blocks your path!"
-            self.dead_text = "The slain corpse of the Hoover lies on the floor"
+            self.dead_text = f"""The slain corpse of the Hoover lies on the floor.
+            It has dropped {self.enemy.prize} pieces of gold"""
+            self.taken_prize = "The slain corpse of the Hoover lies on the floor."
         elif r < 0.8:
             self.enemy = enemies.SprayBottle()
             self.alive_text = "A cunning Spray Bottle full of water attacks you!"
-            self.dead_text = "The defeated Spray Bottle is in pieces on the floor"
+            self.dead_text = "The defeated Spray Bottle is in pieces on the floor. Gold"
+            self.taken_prize = "The defeated Spray Bottle is in pieces on the floor"
         elif r < 0.9:
             self.enemy = enemies.LoudNoise()
             self.alive_text = "There is a Loud Noise hiding here!"
-            self.dead_text = "You have vanquished the Loud Noise that once lived here"
+            self.dead_text = "You have vanquished the Loud Noise that once lived here. Gold"
+            self.taken_prize = "You have vanquished the Loud Noise that once lived here"
         else:
             self.enemy = enemies.Box()
             self.alive_text = "IT IS THE BOX! WE DO NOT LIKE THE BOX!"
-            self.dead_text = "You step over the corpse of the mighty Box which you defeated"
+            self.dead_text = "You step over the corpse of the mighty Box which you defeated. Gold"
+            self.taken_prize = "You step over the corpse of the mighty Box which you defeated"
 
         super().__init__(x,y)
     #Generate intro text
     def intro_text(self):
         if self.enemy.is_alive():
             return(self.alive_text)
-        else:
+        elif self.claimed == False:
             return(self.dead_text)
+        else:
+            return(self.taken_prize)
 
     #Make the enemy attack
     def modify_player(self, player):
@@ -112,6 +120,10 @@ class EnemyTile(MapTile):
             player.hp -= self.enemy.damage
             print(f"""You have taken {self.enemy.damage} damage!
             You have {player.hp} health remaining""")
+    #Pick up the item
+        elif self.claimed == False:
+            self.claimed = True
+            player.gold = player.gold + self.enemy.prize
 
 class VictoryTile(MapTile):
     #Set value to win
