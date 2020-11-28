@@ -7,6 +7,7 @@ import enemies
 def get_available_actions(room, player):
     actions = OrderedDict()
     print("Choose an action: ")
+    action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
     if isinstance(room, world.TraderTile):
