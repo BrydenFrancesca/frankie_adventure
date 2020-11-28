@@ -11,7 +11,7 @@ class Player:
     #Add HP to the player
         self.hp = 100
         self.victory = False #Set winning option
-        self.gold = 5
+        self.gold = 500
 
     #Give player the option to die
     def is_alive(self):
@@ -102,3 +102,6 @@ class Player:
     def talk(self):
         room = world.tile_at(self.x, self.y)
         room.chats(self)
+
+#Check your health
+    def 

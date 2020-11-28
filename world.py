@@ -7,7 +7,7 @@ import npc
 world_dsl = """
 |  |OT|ET|ET|OT|KT|
 |WT|  |ET|KT|ET|  |
-|KT|OT|ST|ET|KT|OT|
+|KT|OT|TT|ET|KT|OT|
 |ET|KT|KT|ET|  |ET|
 |  |OT|  |OT|ET|TT|
 |VT|BT|OT|WT|  |KT|
@@ -80,10 +80,10 @@ class TraderTile(MapTile):
         super().__init__(x, y)
 
     #Trading Function
-    def trade(self, buyer, seller):
-        for i, item in enumerate(seller.inventory, 1):
-            print(f"{i}. {item.name} - {item.value}")
+    def trade(self, buyer, seller, player):
         while True:
+            for i, item in enumerate(seller.inventory, 1):
+                print(f"{i}. {item.name} - {item.value}")
             user_input = input("Choose an item or press Q to exit: ")
             if user_input in ["Q", "q"]:
                 return
@@ -91,12 +91,12 @@ class TraderTile(MapTile):
                 try:
                     choice = int(user_input)
                     to_swap = seller.inventory[choice - 1]
-                    self.swap(seller, buyer, to_swap)
+                    self.swap(seller, buyer, to_swap, player)
                 except ValueError:
                     print("Invalid choice!")
 
     #Define swapping Function
-    def swap(self, seller, buyer, item):
+    def swap(self, seller, buyer, item, player):
         if item.value > buyer.gold:
             print("That's too expensive!")
             return
@@ -104,7 +104,7 @@ class TraderTile(MapTile):
         buyer.inventory.append(item)
         seller.gold = seller.gold + item.value
         buyer.gold = buyer.gold - item.value
-        print("Trade complete!")
+        print(f"Trade complete! You have {player.gold} gold now")
 
     #Function to initate trade
     def check_if_trade(self, player):
@@ -115,10 +115,10 @@ class TraderTile(MapTile):
                 return
             elif user_input in ["B", "b"]:
                 print("The bunny opens his backpack to reveal the following: ")
-                self.trade(buyer = player, seller = self.trader)
+                self.trade(buyer = player, seller = self.trader, player = player)
             elif user_input in ["S", "s"]:
                 print("You check what you have in your inventory to sell: ")
-                self.trade(buyer = self.trader, seller = player)
+                self.trade(buyer = self.trader, seller = player, player = player)
             else:
                 print("Invalid choice!")
 
