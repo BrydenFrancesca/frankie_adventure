@@ -21,7 +21,7 @@ class Player:
         print("Inventory:")
         for item in self.inventory:
             print("* " + str(item))
-            print("You also have " + str(self.gold) + " gold")
+        print("You also have " + str(self.gold) + " gold")
 
     #Healing self from Inventory
     def heal(self):
