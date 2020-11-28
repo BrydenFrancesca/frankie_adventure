@@ -7,7 +7,7 @@ import npc
 world_dsl = """
 | |OT|ET|ET|OT|
 |OT|ET| |VT|ET|
-|KT|ST|OT|TT| |
+|KT|ST|OT|WT|TT|
 | |ET|KT|ET| |
 | |OT| |OT|ET|
 """
@@ -55,7 +55,7 @@ class TraderTile(MapTile):
     #Trading Function
     def trade(self, buyer, seller):
         for i, item in enumerate(seller.inventory, 1):
-            print(f"{i}. {item.name} - {item.value})
+            print(f"{i}. {item.name} - {item.value}")
         while True:
             user_input = input("Choose an item or press Q to exit: ")
             if user_input in ["Q", "q"]:
@@ -93,7 +93,7 @@ class TraderTile(MapTile):
                 print("You check what you have in your inventory to sell: ")
                 self.trade(buyer = self.trader, seller = player)
             else:
-                print("Invalid choice!")    
+                print("Invalid choice!")
 
     def intro_text(self):
         return """
@@ -102,6 +102,31 @@ class TraderTile(MapTile):
         He looks like he might be willing to trade with you.
         """
 
+class WizardTile(MapTile):
+    def __init__(self, x, y):
+        self.wizard = npc.Doggo()
+        super().__init__(x, y)
+
+    #Trading Function
+    def chats(self, player):
+        while True:
+            print("Would you like to (H)iss at the pupper or (B)op him on the nose?")
+            user_input = input()
+            if user_input in ["H", "h"]:
+                print("The doggo cries and runs away. You are smug")
+                return
+            elif user_input in ["B", "b"]:
+                print("""The pupper is heckin pleased.
+                You also feel good, for some reason""")
+                
+            else:
+                print("Invalid choice!")
+
+    def intro_text(self):
+        return """
+        You are in the out. It smells like doggo here.
+        A heckin pupper licks your nose.
+        """
 
 class OutsideTile(MapTile):
     def __init__(self, x, y):
@@ -226,6 +251,7 @@ tile_type_dict =  {"VT": VictoryTile,
                    "KT": KitchenTile,
                    "OT": OutsideTile,
                    "TT": TraderTile,
+                   "WT": WizardTile,
                    " ": None}
 
 ##Layout the grid of the map

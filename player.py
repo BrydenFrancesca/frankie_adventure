@@ -92,3 +92,13 @@ class Player:
             print(f"You killed the {enemy.name}!")
         else:
             print(f"{enemy.name} HP is {enemy.hp}")
+
+    #Define Trading
+    def trade(self):
+        room = world.tile_at(self.x, self.y)
+        room.check_if_trade(self)
+
+    #Define talking to pupper
+    def talk(self):
+        room = world.tile_at(self.x, self.y)
+        room.chats(self)
