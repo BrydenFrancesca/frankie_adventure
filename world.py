@@ -7,18 +7,26 @@ import basement_tiles as tb
 
 ###Abbreviated map
 world_basement = """
-|DT|  |DT|DT|
-|DT|DT|DT|DT|
-|DT|DT|DT|DT|
-|  |DT|DT|WT|
+|DT|  |KE|KE|
+|KE|KE|HT|KE|
+|  |KE|KE|KE|
+|  |KE|KE|TT|
 
 """
 
 world_first_floor = """
 |WT|ET|  |AT|
-|KT|ST|UT|ET|
+|UT|ST|OT|ET|
 |OT|ET|KT|ET|
 |  |KT|OT|  |
+
+"""
+
+world_second_floor = """
+|  |  |  |  |
+|  |  |ET|VT|
+|  |  |  |  |
+|  |  |  |  |
 
 """
 
@@ -44,6 +52,8 @@ tile_type_dict =  {"VT": td.VictoryTile,
                    "UT": td.StairsTile,
                    "DT": tb.BasementTile,
                    "AT": td.BallTile,
+                   "HT": tb.HumanTile,
+                   "KE": tb.KeyTile,
                    "  ": None}
 
 ##Layout the grid of the map

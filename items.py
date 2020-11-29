@@ -88,3 +88,9 @@ class Ball(Questable):
         self.name = "Bouncy ball"
         self.description = """This bouncy ball looks like it would be fun to play with"""
         self.value = 1000
+
+class Keys(Questable):
+    def __init__(self):
+        self.name = "Keys"
+        self.description = """I think these are important"""
+        self.value = 1000

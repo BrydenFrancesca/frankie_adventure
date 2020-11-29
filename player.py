@@ -4,17 +4,18 @@ import random
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Claws(), items.Dreamies(), items.Ball()]
+        self.inventory = [items.Claws(), items.Dreamies(), items.ShinyRock()]
 
     #Add coordina0tes to player
-        self.x = 1
-        self.y = 1
-        self.z = 1
+        self.x = 0
+        self.y = 0
+        self.z = 0
     #Add HP to the player
         self.hp = 100
         self.mana = 5
         self.victory = False #Set winning option
         self.pass_stairs = False #Set option so you can't go upstairs yet
+        self.look_for_key = False #Not looking for keys yet
         self.gold = 5
 
     #Give player the option to die
