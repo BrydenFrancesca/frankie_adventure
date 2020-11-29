@@ -13,11 +13,11 @@ class MapTile:
         self.y = y
         self.z = z
 
+    def modify_room(self, player):
+        pass
+        
     def intro_text(self):
         raise NotImplementedError("Create a subclass instead!")
 
     def modify_player(self, player):
-        pass
-
-    def modify_room(self, player):
         pass
