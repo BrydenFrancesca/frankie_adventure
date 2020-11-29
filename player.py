@@ -4,12 +4,12 @@ import random
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Claws(), items.Dreamies(), items.ShinyRock()]
+        self.inventory = [items.Claws(), items.Dreamies()]
 
     #Add coordina0tes to player
         self.x = 2
         self.y = 2
-        self.z = 0
+        self.z = 1
     #Add HP to the player
         self.hp = 100
         self.mana = 5

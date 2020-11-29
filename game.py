@@ -3,6 +3,7 @@ from collections import OrderedDict
 import world
 import enemies
 import tile_descriptions as td
+import basement_tiles as tb
 
 #Make it so only appropriate actions are available
 def get_available_actions(room, player):
@@ -31,8 +32,10 @@ def get_available_actions(room, player):
                 action_adder(actions, "e", player.move_east, "Go east")
             if world.tile_at(room.x - 1, room.y, room.z):
                 action_adder(actions, "w", player.move_west, "Go west")
+    if isinstance(room, tb.BasementTile):
+        if room.light == True:
+            action_adder(actions, "w", player.move_down, "Go down")
     else:
-    #Move in normal tiles
         if world.tile_at(room.x, room.y - 1, room.z):
             action_adder(actions, "n", player.move_north, "Go north")
         if world.tile_at(room.x, room.y + 1, room.z):
@@ -52,6 +55,8 @@ def action_adder(action_dict, hotkey, action, name):
     action_dict[hotkey.lower()] = action
     action_dict[hotkey.upper()] = action
     print("{}: {}".format(hotkey, name))
+
+
 
 #Use dictionary to get available options
 def choose_action(room, player):

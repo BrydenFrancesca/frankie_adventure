@@ -18,3 +18,6 @@ class MapTile:
 
     def modify_player(self, player):
         pass
+
+    def modify_room(self, player):
+        pass
