@@ -6,7 +6,7 @@ import enemies
 #Make it so only appropriate actions are available
 def get_available_actions(room, player):
     actions = OrderedDict()
-    print("Choose an action: ")
+    print("\nChoose an action: ")
     action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
@@ -38,8 +38,8 @@ def get_available_actions(room, player):
             action_adder(actions, "e", player.move_east, "Go east")
         if world.tile_at(room.x - 1, room.y):
             action_adder(actions, "w", player.move_west, "Go west")
-        if player.hp < 100:
-            action_adder(actions, "h", player.heal, "Heal")
+    if player.hp < 100:
+        action_adder(actions, "h", player.heal, "Heal")
 
     return actions
 

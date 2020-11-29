@@ -42,7 +42,7 @@ class LoudNoise(Enemy):
 class Box(Enemy):
     def __init__(self):
         self.name = "The Box"
-        self.hp = 5
+        self.hp = 10
         self.damage = 60
         self.prize = 40
 

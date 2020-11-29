@@ -1,5 +1,6 @@
 import items
 import world
+import random
 
 class Player:
     def __init__(self):
@@ -89,8 +90,12 @@ class Player:
         nice_weapon = self.best_weapon()
         room = world.tile_at(self.x, self.y)
         enemy = room.enemy
-        print(f"You use {nice_weapon.name} against {enemy.name}!")
-        enemy.hp -= nice_weapon.damage
+        dam = round(nice_weapon.damage * (random.random() + 0.5)) #Randomise amount of damage done
+        if dam >= nice_weapon.damage:
+            print("\nCRITICAL HIT!")
+        print(f""" \nYou use {nice_weapon.name} against {enemy.name}!
+                You did {dam} HP damage!""")
+        enemy.hp -= dam
 
         if not enemy.is_alive():
             print(f"You killed the {enemy.name}!")
