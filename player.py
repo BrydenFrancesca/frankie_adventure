@@ -10,6 +10,7 @@ class Player:
         self.y = 2
     #Add HP to the player
         self.hp = 100
+        self.mana = 5
         self.victory = False #Set winning option
         self.gold = 5
 
@@ -68,6 +69,8 @@ class Player:
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        if self.mana < 10:
+            self.mana += 1
 
     def move_north(self):
         self.move(dx = 0, dy = -1)
@@ -94,6 +97,20 @@ class Player:
         else:
             print(f"{enemy.name} HP is {enemy.hp}")
 
+    #Define magical attack on Enemy; destroys their HP and makes you feel better, but depleats mana
+    def magic_attack(self):
+        room = world.tile_at(self.x, self.y)
+        enemy = room.enemy
+        print(f"You use MAGIC PURR against {enemy.name}!")
+        enemy.hp -= 20
+        self.hp += 5
+        self.mana -= 5
+
+        if not enemy.is_alive():
+            print(f"You killed the {enemy.name}!")
+        else:
+            print(f"{enemy.name} HP is {enemy.hp}")
+
     #Define Trading
     def trade(self):
         room = world.tile_at(self.x, self.y)
@@ -106,4 +123,7 @@ class Player:
 
 #Check your health
     def check_health(self):
-        print(f"You have {self.hp} HP remaining")
+        print(f"""
+        \n You have {self.hp} HP remaining
+        You have {self.mana} mana remaining
+        """)

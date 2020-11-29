@@ -11,3 +11,6 @@
 - [X] Larger map
 - [] Second storey to map
 - [] Weapons that break
+- [] Objects with different functions
+- [] Magical attacks
+- [] Quest option!
