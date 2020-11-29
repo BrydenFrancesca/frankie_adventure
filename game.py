@@ -2,6 +2,7 @@ from player import Player
 from collections import OrderedDict
 import world
 import enemies
+import tile_descriptions as td
 
 #Make it so only appropriate actions are available
 def get_available_actions(room, player):
@@ -10,11 +11,11 @@ def get_available_actions(room, player):
     action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
-    if isinstance(room, world.TraderTile):
+    if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
-    if isinstance(room, world.WizardTile) and room.been_here == False:
+    if isinstance(room, td.WizardTile) and room.been_here == False:
         action_adder(actions, "c", player.talk, "Talk")
-    if isinstance(room, world.EnemyTile) or isinstance(room, world.BossTile):
+    if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile):
         if room.enemy.is_alive():
             action_adder(actions, "a", player.attack, "Attack")
             if player.mana > 5:
