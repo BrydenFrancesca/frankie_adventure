@@ -15,10 +15,10 @@ world_basement = """
 """
 
 world_first_floor = """
-|UT|  |ET|AT|
-|KT|WT|OT|ET|
+|WT|ET|  |AT|
+|KT|ST|UT|ET|
 |OT|ET|KT|ET|
-|  |KT|OT|WT|
+|  |KT|OT|  |
 
 """
 

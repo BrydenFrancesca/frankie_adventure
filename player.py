@@ -14,6 +14,7 @@ class Player:
         self.hp = 100
         self.mana = 5
         self.victory = False #Set winning option
+        self.pass_stairs = False #Set option so you can't go upstairs yet
         self.gold = 5
 
     #Give player the option to die

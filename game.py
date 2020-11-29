@@ -17,8 +17,9 @@ def get_available_actions(room, player):
     if isinstance(room, tb.WizardTile) and room.been_here == False:
         action_adder(actions, "c", player.talk, "Talk")
     if isinstance(room, td.StairsTile):
-        #action_adder(actions, "u", player.move_up, "Go Upstairs")
         action_adder(actions, "d", player.move_down, "Go Downstairs")
+        if player.pass_stairs == True:
+            action_adder(actions, "u", player.move_up, "Go Upstairs")
     if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile) or isinstance(room, tb.BasementTile):
         if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile):
             if room.enemy.is_alive():
