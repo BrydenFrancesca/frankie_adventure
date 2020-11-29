@@ -15,7 +15,7 @@ class StartTile(t.MapTile):
         There are doors heading in four directions
         """
 class KitchenTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
     #Randomly generated room description
         r = random.random()
         self.been_here = False #The room knows if you have been here
@@ -37,7 +37,7 @@ class KitchenTile(t.MapTile):
             There is a giant litter tray that the humans like to fill with water.
             You do not trust the giant litter tray
             """
-        super().__init__(x,y)
+        super().__init__(x,y,z)
 
     def intro_text(self):
         if not self.been_here:
@@ -47,21 +47,21 @@ class KitchenTile(t.MapTile):
             return self.text + "\n It smells like you have been here before \n"
 
 class StairsTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.text = """
         You are in the mighty hill room.
         A hill of steps stretches upward.
         You would like to climb this. """
 
-        super().__init__(x,y)
+        super().__init__(x,y,z)
     def intro_text(self):
         return self.text
 
 
 class TraderTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.trader = npc.Trader()
-        super().__init__(x, y)
+        super().__init__(x, y, z)
 
     #Trading Function
     def trade(self, buyer, seller, player):
@@ -114,10 +114,10 @@ class TraderTile(t.MapTile):
         """
 
 class WizardTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.wizard = npc.Doggo()
         self.been_here = False #The room knows if you have been here
-        super().__init__(x, y)
+        super().__init__(x, y, z)
 
     #Trading Function
     def chats(self, player):
@@ -152,7 +152,7 @@ class WizardTile(t.MapTile):
             It also kind of smells of dog"""
 
 class OutsideTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
     #Randomly generated enemy tile
         r = random.random()
         if r < 0.2:
@@ -167,7 +167,7 @@ class OutsideTile(t.MapTile):
             self.item = items.ToyOnString()
 
         self.claimed = False
-        super().__init__(x,y)
+        super().__init__(x,y,z)
 
     def intro_text(self):
         if not self.claimed:
@@ -191,7 +191,7 @@ class OutsideTile(t.MapTile):
 
 
 class EnemyTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.claimed = False #Gold has not been claimed yet
         self.been_here = False #The room knows if you have been here
     #Randomly generated enemy tile
@@ -227,7 +227,7 @@ class EnemyTile(t.MapTile):
             It has dropped {self.enemy.prize} pieces of gold"""
             self.taken_prize = "You step over the corpse of the mighty Box which you defeated"
 
-        super().__init__(x,y)
+        super().__init__(x,y,z)
     #Generate intro text
     def intro_text(self):
         if self.enemy.is_alive():
@@ -256,7 +256,7 @@ class EnemyTile(t.MapTile):
             player.gold = player.gold + self.enemy.prize
 
 class BossTile(t.MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.claimed = False #Gold has not been claimed yet
         self.been_here = False #The room knows if you have been here
     #Randomly generated enemy tile
@@ -266,7 +266,7 @@ class BossTile(t.MapTile):
         It has dropped {self.enemy.prize} pieces of gold"""
         self.taken_prize = "Once again, you step over the corpse of the defeated Box."
 
-        super().__init__(x,y)
+        super().__init__(x,y,z)
     #Generate intro text
     def intro_text(self):
         if self.enemy.is_alive():

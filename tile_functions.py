@@ -8,9 +8,10 @@ def rndm(self):
     return(round(x * r))
 
 class MapTile:
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.x = x
         self.y = y
+        self.z = z
 
     def intro_text(self):
         raise NotImplementedError("Create a subclass instead!")

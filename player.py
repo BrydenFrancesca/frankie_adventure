@@ -68,28 +68,33 @@ class Player:
         return best_weapon
 
     #Methods to allow the player to move
-    def move(self, dx, dy):
+    def move(self, dx, dy, dz):
         self.x += dx
         self.y += dy
+        self.z += dz
         if self.mana < 10:
             self.mana += 1
 
     def move_north(self):
-        self.move(dx = 0, dy = -1)
+        self.move(dx = 0, dy = -1, dz = 0)
 
     def move_south(self):
-        self.move(dx = 0, dy = 1)
+        self.move(dx = 0, dy = 1, dz = 0)
 
     def move_east(self):
-        self.move(dx = 1, dy = 0)
+        self.move(dx = 1, dy = 0, dz = 0)
 
     def move_west(self):
-        self.move(dx = -1, dy = 0)
+        self.move(dx = -1, dy = 0, dz = 0)
+
+    def move_up(self):
+        self.move(dx = 0, dy = 0, dz = 1)
+
 
     #Define attack on Enemy
     def attack(self):
         nice_weapon = self.best_weapon()
-        room = world.tile_at(self.x, self.y)
+        room = world.tile_at(self.x, self.y, self.z)
         enemy = room.enemy
         dam = round(nice_weapon.damage * (random.random() + 0.5)) #Randomise amount of damage done
         if dam >= nice_weapon.damage:
@@ -105,7 +110,7 @@ class Player:
 
     #Define magical attack on Enemy; destroys their HP and makes you feel better, but depleats mana
     def magic_attack(self):
-        room = world.tile_at(self.x, self.y)
+        room = world.tile_at(self.x, self.y, self.z)
         enemy = room.enemy
         print(f"You use MAGIC PURR against {enemy.name}!")
         enemy.hp -= 20
@@ -119,17 +124,13 @@ class Player:
 
     #Define Trading
     def trade(self):
-        room = world.tile_at(self.x, self.y)
+        room = world.tile_at(self.x, self.y, self.z)
         room.check_if_trade(self)
 
     #Define talking to pupper
     def talk(self):
-        room = world.tile_at(self.x, self.y)
+        room = world.tile_at(self.x, self.y, self.z)
         room.chats(self)
-
-    def climb(self):
-        room = world.tile_at(self.x, self.y)
-        self.z += 1   
 
 #Check your health
     def check_health(self):

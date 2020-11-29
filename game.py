@@ -12,7 +12,7 @@ def get_available_actions(room, player):
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
     if isinstance(room, td.StairsTile): #Add climb stairs option when in stairs room
-        action_adder(actions, "u", player.climb, "Go Upstairs")
+        action_adder(actions, "u", player.move_up, "Go Upstairs")
     if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
     if isinstance(room, td.WizardTile) and room.been_here == False:
@@ -23,23 +23,23 @@ def get_available_actions(room, player):
             if player.mana > 5:
                 action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
         elif not room.enemy.is_alive():
-            if world.tile_at(room.x, room.y - 1):
+            if world.tile_at(room.x, room.y - 1, room.z):
                 action_adder(actions, "n", player.move_north, "Go north")
-            if world.tile_at(room.x, room.y + 1):
+            if world.tile_at(room.x, room.y + 1, room.z):
                 action_adder(actions, "s", player.move_south, "Go south")
-            if world.tile_at(room.x + 1, room.y):
+            if world.tile_at(room.x + 1, room.y, room.z):
                 action_adder(actions, "e", player.move_east, "Go east")
-            if world.tile_at(room.x - 1, room.y):
+            if world.tile_at(room.x - 1, room.y, room.z):
                 action_adder(actions, "w", player.move_west, "Go west")
     else:
     #Move in normal tiles
-        if world.tile_at(room.x, room.y - 1):
+        if world.tile_at(room.x, room.y - 1, room.z):
             action_adder(actions, "n", player.move_north, "Go north")
-        if world.tile_at(room.x, room.y + 1):
+        if world.tile_at(room.x, room.y + 1, room.z):
             action_adder(actions, "s", player.move_south, "Go south")
-        if world.tile_at(room.x + 1, room.y):
+        if world.tile_at(room.x + 1, room.y, room.z):
             action_adder(actions, "e", player.move_east, "Go east")
-        if world.tile_at(room.x - 1, room.y):
+        if world.tile_at(room.x - 1, room.y, room.z):
             action_adder(actions, "w", player.move_west, "Go west")
     if player.hp < 100:
         action_adder(actions, "h", player.heal, "Heal")
@@ -71,7 +71,7 @@ def play():
     #Initialise player environment here
     player = Player()
     while player.is_alive() and not player.victory:
-        room = world.tile_at(player.x, player.y)
+        room = world.tile_at(player.x, player.y, player.z)
         print(room.intro_text())
         room.modify_player(player) #Allow enemies to attack
         if player.is_alive() and not player.victory:
