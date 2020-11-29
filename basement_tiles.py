@@ -31,7 +31,6 @@ class WizardTile(t.MapTile):
         self.been_here = False #The room knows if you have been here
         self.claimed = False
         self.item = items.ShinyRock()
-        self.ball = items.Ball()
         super().__init__(x, y, z)
 
     #Trading Function
@@ -66,8 +65,11 @@ class WizardTile(t.MapTile):
                 He gives you a shiny rock.""")
                 if not self.claimed:
                     self.claimed = True
-                    player.inventory.remove(items.Ball)
-                    player.inventory.append(self.item)
+                    player.inventory.append(self.item) #Removing ball from inventory
+                    for i, o in enumerate(player.inventory):
+                        if o.name == "Bouncy ball":
+                            del player.inventory[i]
+                            break
                 return
             else:
                 print("Invalid choice!")
