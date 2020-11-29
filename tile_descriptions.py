@@ -51,6 +51,7 @@ class StairsTile(t.MapTile):
         self.text = """
         You are in the mighty hill room.
         A hill of steps stretches upward.
+        Another stretches downwards into a deep, spooky cellar.
         You would like to climb this. """
 
         super().__init__(x,y,z)

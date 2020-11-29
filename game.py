@@ -12,38 +12,25 @@ def get_available_actions(room, player):
     action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
-    if isinstance(room, td.StairsTile): #Add climb stairs option when in stairs room
-        action_adder(actions, "u", player.move_up, "Go Upstairs")
     if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
     if isinstance(room, td.WizardTile) and room.been_here == False:
         action_adder(actions, "c", player.talk, "Talk")
+    if isinstance(room, td.StairsTile):
+        action_adder(actions, "u", player.move_up, "Go Upstairs")
+        action_adder(actions, "d", player.move_down, "Go Downstairs")
     if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile):
         if room.enemy.is_alive():
             action_adder(actions, "a", player.attack, "Attack")
             if player.mana > 5:
                 action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
         elif not room.enemy.is_alive():
-            if world.tile_at(room.x, room.y - 1, room.z):
-                action_adder(actions, "n", player.move_north, "Go north")
-            if world.tile_at(room.x, room.y + 1, room.z):
-                action_adder(actions, "s", player.move_south, "Go south")
-            if world.tile_at(room.x + 1, room.y, room.z):
-                action_adder(actions, "e", player.move_east, "Go east")
-            if world.tile_at(room.x - 1, room.y, room.z):
-                action_adder(actions, "w", player.move_west, "Go west")
+            coord_adder(room = room, actions = actions, player = player)
     if isinstance(room, tb.BasementTile):
         if room.light == True:
-            action_adder(actions, "w", player.move_down, "Go down")
+            coord_adder(room = room, actions = actions, player = player)
     else:
-        if world.tile_at(room.x, room.y - 1, room.z):
-            action_adder(actions, "n", player.move_north, "Go north")
-        if world.tile_at(room.x, room.y + 1, room.z):
-            action_adder(actions, "s", player.move_south, "Go south")
-        if world.tile_at(room.x + 1, room.y, room.z):
-            action_adder(actions, "e", player.move_east, "Go east")
-        if world.tile_at(room.x - 1, room.y, room.z):
-            action_adder(actions, "w", player.move_west, "Go west")
+        coord_adder(room = room, actions = actions, player = player)
 
     if player.hp < 100:
         action_adder(actions, "h", player.heal, "Heal")
@@ -56,7 +43,15 @@ def action_adder(action_dict, hotkey, action, name):
     action_dict[hotkey.upper()] = action
     print("{}: {}".format(hotkey, name))
 
-
+def coord_adder(room, actions, player):
+    if world.tile_at(room.x, room.y - 1, room.z):
+        action_adder(actions, "n", player.move_north, "Go north")
+    if world.tile_at(room.x, room.y + 1, room.z):
+        action_adder(actions, "s", player.move_south, "Go south")
+    if world.tile_at(room.x + 1, room.y, room.z):
+        action_adder(actions, "e", player.move_east, "Go east")
+    if world.tile_at(room.x - 1, room.y, room.z):
+        action_adder(actions, "w", player.move_west, "Go west")
 
 #Use dictionary to get available options
 def choose_action(room, player):
