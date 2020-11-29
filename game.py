@@ -14,16 +14,22 @@ def get_available_actions(room, player):
         action_adder(actions, "t", player.trade, "Trade")
     if isinstance(room, world.WizardTile) and room.been_here == False:
         action_adder(actions, "c", player.talk, "Talk")
-    if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
-        action_adder(actions, "a", player.attack, "Attack")
-        if player.mana > 5:
-            action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
-    if isinstance(room, world.BossTile) and room.enemy.is_alive():
-        action_adder(actions, "a", player.attack, "Attack")
-        if player.mana > 5:
-            action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
-    #Allow to move if a room is there to move to
+    if isinstance(room, world.EnemyTile) or isinstance(room, world.BossTile):
+        if room.enemy.is_alive():
+            action_adder(actions, "a", player.attack, "Attack")
+            if player.mana > 5:
+                action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
+        elif not room.enemy.is_alive():
+            if world.tile_at(room.x, room.y - 1):
+                action_adder(actions, "n", player.move_north, "Go north")
+            if world.tile_at(room.x, room.y + 1):
+                action_adder(actions, "s", player.move_south, "Go south")
+            if world.tile_at(room.x + 1, room.y):
+                action_adder(actions, "e", player.move_east, "Go east")
+            if world.tile_at(room.x - 1, room.y):
+                action_adder(actions, "w", player.move_west, "Go west")
     else:
+    #Move in normal tiles
         if world.tile_at(room.x, room.y - 1):
             action_adder(actions, "n", player.move_north, "Go north")
         if world.tile_at(room.x, room.y + 1):
@@ -32,8 +38,8 @@ def get_available_actions(room, player):
             action_adder(actions, "e", player.move_east, "Go east")
         if world.tile_at(room.x - 1, room.y):
             action_adder(actions, "w", player.move_west, "Go west")
-    if player.hp < 100:
-        action_adder(actions, "h", player.heal, "Heal")
+        if player.hp < 100:
+            action_adder(actions, "h", player.heal, "Heal")
 
     return actions
 
