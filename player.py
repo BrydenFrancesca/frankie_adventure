@@ -6,7 +6,7 @@ class Player:
     def __init__(self):
         self.inventory = [items.Claws(), items.Dreamies()]
 
-    #Add coordinates to player
+    #Add coordina0tes to player
         self.x = 2
         self.y = 2
         self.z = 0
@@ -135,6 +135,7 @@ class Player:
 #Check your health
     def check_health(self):
         print(f"""
+        \n You are on level {self.z}
         \n You have {self.hp} HP remaining
         You have {self.mana} mana remaining
         """)

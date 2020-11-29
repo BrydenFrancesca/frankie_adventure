@@ -6,20 +6,18 @@ import tile_descriptions as td
 
 ###Abbreviated map
 world_down = """
-|  |OT|ET|ET|OT|
-|WT|  |ET|KT|ET|
-|KT|OT|ST|ET|KT|
-|ET|KT|KT|ET|TT|
-|  |OT|UT|OT|ET|
+|WT|  |ET|KT|
+|KT|OT|ST|ET|
+|ET|KT|KT|TT|
+|  |OT|UT|OT|
 
 """
 
 world_up = """
-|  |OT|ET|ET|OT|
-|WT|  |ET|KT|ET|
-|KT|OT|ST|ET|KT|
-|ET|KT|KT|ET|  |
-|  |KT|OT|KT|ET|
+|WT|  |ET|KT|
+|KT|OT|TT|ET|
+|ET|KT|KT|ET|
+|  |KT|OT|KT|
 
 """
 
@@ -50,7 +48,7 @@ world_map = []
 
 #Define automated map function
 def parse_world_dsl():
-    z = 0
+    z = -1
     for ta in [world_down, world_up]:
         table = []
         dsl_lines = ta.splitlines()
