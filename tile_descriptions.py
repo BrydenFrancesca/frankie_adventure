@@ -52,7 +52,7 @@ class StairsTile(t.MapTile):
         You are in the mighty hill room.
         A hill of steps stretches upward.
         Another stretches downwards into a deep, spooky cellar.
-        You would like to climb this. """
+        You would like to climb both up and down. """
 
         super().__init__(x,y,z)
     def intro_text(self):
@@ -114,43 +114,6 @@ class TraderTile(t.MapTile):
         He looks like he might be willing to trade with you.
         """
 
-class WizardTile(t.MapTile):
-    def __init__(self, x, y, z):
-        self.wizard = npc.Doggo()
-        self.been_here = False #The room knows if you have been here
-        super().__init__(x, y, z)
-
-    #Trading Function
-    def chats(self, player):
-        if self.been_here == False:
-            while True:
-                print("Would you like to (H)iss at the pupper or (B)op him on the nose?")
-                user_input = input()
-                if user_input in ["H", "h"]:
-                    print("The doggo cries and runs away. You are smug")
-                    self.been_here = True
-                    return
-                elif user_input in ["B", "b"]:
-                    player.hp = 120
-                    print(f"""The pupper is heckin pleased.
-                    You also feel good, for some reason.
-                    Your HP is now {player.hp}""")
-                    self.been_here = True
-                    return
-                else:
-                    print("Invalid choice!")
-
-    def intro_text(self):
-        if self.been_here == False:
-            return """
-            You are in the out. It smells like doggo here.
-            A heckin pupper licks your nose.
-            """
-        else:
-            return """
-            You are in the out.
-            It smells like you have already been here
-            It also kind of smells of dog"""
 
 class OutsideTile(t.MapTile):
     def __init__(self, x, y, z):
@@ -189,6 +152,30 @@ class OutsideTile(t.MapTile):
             self.claimed = True
             player.inventory.append(self.item)
 
+class BallTile(t.MapTile):
+    def __init__(self, x, y, z):
+        self.item = items.Ball()
+        self.claimed = False
+        super().__init__(x,y,z)
+
+    def intro_text(self):
+        if not self.claimed:
+            return f"""
+            You are in the out.
+            Sometimes water falls from the sky when you are here.
+            This is not optimal.
+            Snuffling on the floor, you find a {self.item}.
+            """
+        else:
+            return f"""
+            You are in the out.
+            It smells like you have already been here before
+            """
+#Pick up the item
+    def modify_player(self, player):
+        if not self.claimed:
+            self.claimed = True
+            player.inventory.append(self.item)
 
 
 class EnemyTile(t.MapTile):

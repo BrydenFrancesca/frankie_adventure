@@ -4,7 +4,7 @@ import random
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Claws(), items.Dreamies()]
+        self.inventory = [items.Claws(), items.Dreamies(), items.Ball()]
 
     #Add coordina0tes to player
         self.x = 1

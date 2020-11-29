@@ -15,10 +15,10 @@ world_basement = """
 """
 
 world_first_floor = """
-|UT|  |ET|KT|
-|OT|ST|OT|ET|
+|UT|  |ET|AT|
+|OT|ST|WT|ET|
 |ET|ET|KT|ET|
-|  |KT|OT|TT|
+|  |KT|OT|WT|
 
 """
 
@@ -39,10 +39,11 @@ tile_type_dict =  {"VT": td.VictoryTile,
                    "KT": td.KitchenTile,
                    "OT": td.OutsideTile,
                    "TT": td.TraderTile,
-                   "WT": td.WizardTile,
+                   "WT": tb.WizardTile,
                    "BT": td.BossTile,
                    "UT": td.StairsTile,
                    "DT": tb.BasementTile,
+                   "AT": td.BallTile,
                    "  ": None}
 
 ##Layout the grid of the map

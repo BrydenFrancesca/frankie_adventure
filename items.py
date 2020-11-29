@@ -82,3 +82,9 @@ class ShinyRock(Questable):
         self.description = """This rock glows with an unusual light.
         It is good at lighting up dark spaces"""
         self.value = 0
+
+class Ball(Questable):
+    def __init__(self):
+        self.name = "Bouncy ball"
+        self.description = """This bouncy ball looks like it would be fun to play with"""
+        self.value = 1000

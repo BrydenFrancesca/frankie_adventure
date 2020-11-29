@@ -14,21 +14,24 @@ def get_available_actions(room, player):
         action_adder(actions, "i", player.print_inventory, "Print inventory")
     if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
-    if isinstance(room, td.WizardTile) and room.been_here == False:
+    if isinstance(room, tb.WizardTile) and room.been_here == False:
         action_adder(actions, "c", player.talk, "Talk")
     if isinstance(room, td.StairsTile):
         action_adder(actions, "u", player.move_up, "Go Upstairs")
         action_adder(actions, "d", player.move_down, "Go Downstairs")
-    if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile):
-        if room.enemy.is_alive():
-            action_adder(actions, "a", player.attack, "Attack")
-            if player.mana > 5:
-                action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
-        elif not room.enemy.is_alive():
-            coord_adder(room = room, actions = actions, player = player)
-    if isinstance(room, tb.BasementTile):
-        if room.light == True:
-            coord_adder(room = room, actions = actions, player = player)
+    if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile) or isinstance(room, tb.BasementTile):
+        if isinstance(room, td.EnemyTile) or isinstance(room, td.BossTile):
+            if room.enemy.is_alive():
+                action_adder(actions, "a", player.attack, "Attack")
+                if player.mana > 5:
+                    action_adder(actions, "p", player.magic_attack, "Magic Purr Attack")
+            elif not room.enemy.is_alive():
+                coord_adder(room = room, actions = actions, player = player)
+        elif isinstance(room, tb.BasementTile):
+            if room.light == True:
+                coord_adder(room = room, actions = actions, player = player)
+            elif room.light == False:
+                action_adder(actions, "u", player.move_up, "Go Upstairs")
     else:
         coord_adder(room = room, actions = actions, player = player)
 
