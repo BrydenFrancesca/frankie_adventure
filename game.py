@@ -11,6 +11,8 @@ def get_available_actions(room, player):
     action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
+    if isinstance(room, td.StairsTile): #Add climb stairs option when in stairs room
+        action_adder(actions, "u", player.climb, "Go Upstairs")
     if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
     if isinstance(room, td.WizardTile) and room.been_here == False:

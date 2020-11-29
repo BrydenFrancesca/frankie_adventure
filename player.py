@@ -9,6 +9,7 @@ class Player:
     #Add coordinates to player
         self.x = 2
         self.y = 2
+        self.z = 0
     #Add HP to the player
         self.hp = 100
         self.mana = 5
@@ -125,6 +126,10 @@ class Player:
     def talk(self):
         room = world.tile_at(self.x, self.y)
         room.chats(self)
+
+    def climb(self):
+        room = world.tile_at(self.x, self.y)
+        self.z += 1   
 
 #Check your health
     def check_health(self):

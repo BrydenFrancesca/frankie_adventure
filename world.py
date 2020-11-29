@@ -10,7 +10,7 @@ world_dsl = """
 |WT|  |ET|KT|ET|  |
 |KT|OT|ST|ET|KT|OT|
 |ET|KT|KT|ET|  |ET|
-|  |OT|  |OT|ET|TT|
+|  |OT|UT|OT|ET|TT|
 |VT|BT|OT|WT|  |KT|
 
 """
@@ -34,6 +34,7 @@ tile_type_dict =  {"VT": td.VictoryTile,
                    "TT": td.TraderTile,
                    "WT": td.WizardTile,
                    "BT": td.BossTile,
+                   "UT": td.StairsTile,
                    "  ": None}
 
 ##Layout the grid of the map

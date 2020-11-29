@@ -46,6 +46,17 @@ class KitchenTile(t.MapTile):
         else:
             return self.text + "\n It smells like you have been here before \n"
 
+class StairsTile(t.MapTile):
+    def __init__(self, x, y):
+        self.text = """
+        You are in the mighty hill room.
+        A hill of steps stretches upward.
+        You would like to climb this. """
+
+        super().__init__(x,y)
+    def intro_text(self):
+        return self.text
+
 
 class TraderTile(t.MapTile):
     def __init__(self, x, y):
