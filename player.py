@@ -4,7 +4,7 @@ import random
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Claws(), items.Dreamies()]
+        self.inventory = [items.Claws(), items.Dreamies(), items.ShinyRock()]
 
     #Add coordina0tes to player
         self.x = 2
@@ -90,6 +90,8 @@ class Player:
     def move_up(self):
         self.move(dx = 0, dy = 0, dz = 1)
 
+    def move_down(self):
+        self.move(dx = 0, dy = 0, dz = -1)
 
     #Define attack on Enemy
     def attack(self):

@@ -73,6 +73,7 @@ def play():
     player = Player()
     while player.is_alive() and not player.victory:
         room = world.tile_at(player.x, player.y, player.z)
+        room.modify_room(player) #Allow enemies to attack
         print(room.intro_text())
         room.modify_player(player) #Allow enemies to attack
         if player.is_alive() and not player.victory:

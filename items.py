@@ -68,3 +68,17 @@ class HumanFood(Consumable):
         self.name = "Human food (nomnom)"
         self.healing_value = 50
         self.value = 30
+
+##Create overall quest and useful item class----------
+class Questable:
+    def __init__(self):
+        raise NotImplementedError("Do not create raw weapon objects")
+    def __str__(self):
+        return self.name + ". " + str(self.description)
+
+class ShinyRock(Questable):
+    def __init__(self):
+        self.name = "Shiny rock"
+        self.description = """This rock glows with an unusual light.
+        It is good at lighting up dark spaces"""
+        self.value = 0

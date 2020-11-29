@@ -3,17 +3,18 @@ import enemies
 import items
 import npc
 import tile_descriptions as td
+import basement_tiles as tb
 
 ###Abbreviated map
-world_down = """
-|WT|  |ET|KT|
-|KT|OT|ST|ET|
-|ET|KT|KT|TT|
-|  |OT|UT|OT|
+world_basement = """
+|DT|  |DT|DT|
+|DT|DT|DT|DT|
+|DT|DT|DT|DT|
+|  |DT|DT|DT|
 
 """
 
-world_up = """
+world_first_floor = """
 |WT|  |ET|KT|
 |KT|OT|TT|ET|
 |ET|KT|KT|ET|
@@ -41,6 +42,7 @@ tile_type_dict =  {"VT": td.VictoryTile,
                    "WT": td.WizardTile,
                    "BT": td.BossTile,
                    "UT": td.StairsTile,
+                   "DT": tb.BasementTile,
                    "  ": None}
 
 ##Layout the grid of the map
@@ -49,7 +51,7 @@ world_map = []
 #Define automated map function
 def parse_world_dsl():
     z = -1
-    for ta in [world_down, world_up]:
+    for ta in [world_basement, world_first_floor]:
         table = []
         dsl_lines = ta.splitlines()
         dsl_lines = [x for x in dsl_lines if x]
