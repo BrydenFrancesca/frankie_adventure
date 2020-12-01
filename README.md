@@ -7,10 +7,10 @@
 - [] More monsters
 - [X] More weapons
 - [X] More powerups
-- [] Variation on damage caused
+- [X] Variation on damage caused
 - [X] Larger map
 - [] Second storey to map
 - [] Weapons that break
-- [] Objects with different functions
-- [] Magical attacks
-- [] Quest option!
+- [X] Objects with different functions
+- [X] Magical attacks
+- [X] Quest option!

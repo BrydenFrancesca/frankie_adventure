@@ -122,6 +122,7 @@ class HumanTile(t.MapTile):
     def __init__(self, x, y, z):
         self.been_here = False #The room knows if you have been here
         self.claimed = False
+        self.task_done = False
         super().__init__(x, y, z)
 
     #Trading Function
@@ -134,11 +135,29 @@ class HumanTile(t.MapTile):
                     You think maybe she will let you up the stairs if you find them.""")
                 self.been_here = True
                 player.look_for_key = True
-                return
+            elif self.been_here == True and self.task_done == False:
+                for item in player.inventory:
+                    if isinstance(item, items.Ball):
+                        print("""/n The human is so happy you have found her keys!
+                        She picks you up and scritches your belly!
+                        She says that she can now take those boxes out to the car.
+                        She will clear a path up the stairs for you""")
+                        self.task_done == True
+                        for i, o in enumerate(player.inventory):
+                            if o.name == "Keys":
+                                del player.inventory[i]
+                                break
+                else:
+                    print("""The human is digging through some boxes.
+                        She does not have time for snuggles.
+                        Maybe you should find her keys?""")
 
     def intro_text(self):
-        return """
-        You are in a basement room.
-        A human is here. It is not the best human.
-        She is looking in the boxes.
-        """
+        if self.task_done == False:
+            return """
+            You are in a basement room.
+            A human is here. It is not the best human.
+            She is looking in the boxes.
+            """
+        else:
+            return("You are in a dingy basement room. The human has gone")

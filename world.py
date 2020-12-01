@@ -7,8 +7,8 @@ import basement_tiles as tb
 
 ###Abbreviated map
 world_basement = """
-|DT|  |KE|KE|
-|KE|KE|HT|KE|
+|KE|  |KE|KE|
+|DT|KE|HT|KE|
 |  |KE|KE|KE|
 |  |KE|KE|TT|
 
@@ -16,7 +16,7 @@ world_basement = """
 
 world_first_floor = """
 |WT|ET|  |AT|
-|UT|ST|OT|ET|
+|UT|HT|OT|ET|
 |OT|ET|KT|ET|
 |  |KT|OT|  |
 

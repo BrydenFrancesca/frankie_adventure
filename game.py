@@ -12,7 +12,7 @@ def get_available_actions(room, player):
     action_adder(actions, "k", player.check_health, "Check health")
     if player.inventory:
         action_adder(actions, "i", player.print_inventory, "Print inventory")
-    if isinstance(room, tb.HumanTile):
+    if isinstance(room, tb.HumanTile) and room.task_done == False: #Can chat if task not done
         action_adder(actions, "c", player.talk, "Interact with Human")
     if isinstance(room, td.TraderTile):
         action_adder(actions, "t", player.trade, "Trade")
