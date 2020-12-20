@@ -120,9 +120,8 @@ class WizardTile(t.MapTile):
 
 class HumanTile(t.MapTile):
     def __init__(self, x, y, z):
-        self.been_here = False #The room knows if you have been here
-        self.claimed = False
         self.task_done = False
+        self.been_here = False #The room knows if you have been here
         super().__init__(x, y, z)
 
     #Trading Function
@@ -137,8 +136,8 @@ class HumanTile(t.MapTile):
                 player.look_for_key = True
             elif self.been_here == True and self.task_done == False:
                 for item in player.inventory:
-                    if isinstance(item, items.Ball):
-                        print("""/n The human is so happy you have found her keys!
+                    if isinstance(item, items.Keys):
+                        print("""\n The human is so happy you have found her keys!
                         She picks you up and scritches your belly!
                         She says that she can now take those boxes out to the car.
                         She will clear a path up the stairs for you""")
@@ -147,10 +146,14 @@ class HumanTile(t.MapTile):
                             if o.name == "Keys":
                                 del player.inventory[i]
                                 break
-                else:
-                    print("""The human is digging through some boxes.
-                        She does not have time for snuggles.
-                        Maybe you should find her keys?""")
+                        return
+            elif self.been_here == True and self.task_done == False:
+                print("""The human is digging through some boxes.
+                    She does not have time for snuggles.
+                    Maybe you should find her keys?""")
+            else:
+                print("""The human nearly falls over you.
+                Maybe you should leave her alone?""")
 
     def intro_text(self):
         if self.task_done == False:
@@ -159,5 +162,6 @@ class HumanTile(t.MapTile):
             A human is here. It is not the best human.
             She is looking in the boxes.
             """
-        else:
-            return("You are in a dingy basement room. The human has gone")
+        elif self.task_done == True:
+            return("""You are in a dingy basement room.
+            The human is moving boxes""")
